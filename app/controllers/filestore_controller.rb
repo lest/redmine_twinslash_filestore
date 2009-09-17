@@ -24,7 +24,7 @@ class FilestoreController < ApplicationController
     path = base_dir + '/' + params[:filename]
     if File.expand_path(path).match(Regexp.new("^#{Regexp.quote(base_dir)}")) && File.exists?(path)
       begin
-        lines = File.readlines(File.dirname(path) + '/description.ion')
+        lines = File.readlines(File.dirname(path) + '/descript.ion')
       rescue StandardError
         lines = []
       end
@@ -38,7 +38,7 @@ class FilestoreController < ApplicationController
         line
       end
       lines << File.basename(path) + ' ' + params[:value] unless found
-      file = File.open(File.dirname(path) + '/description.ion', 'w')
+      file = File.open(File.dirname(path) + '/descript.ion', 'w')
       lines.each {|l| file.puts(l)}
       file.close
     end

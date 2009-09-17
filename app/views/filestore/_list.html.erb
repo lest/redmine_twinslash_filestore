@@ -1,5 +1,5 @@
 <% for entry in entries %>
-  <% if File.basename(entry) != 'description.ion' %>
+  <% if File.basename(entry) != 'descript.ion' %>
     <% index ||= 0
        level ||= 0
        filename = entry.gsub(Regexp.new("^#{Regexp.quote(@base_dir)}/"), '') %>
@@ -16,7 +16,7 @@
       <td class="comments">
         <% comment = nil
            begin
-             lines = File.readlines(File.dirname(entry) + '/description.ion')
+             lines = File.readlines(File.dirname(entry) + '/descript.ion')
            rescue StandardError
              lines = []
            end

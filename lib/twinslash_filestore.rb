@@ -8,7 +8,7 @@ module Twinslash
         res = arg.login if arg.is_a?(User)
         res
       end 
-      puts("#{command} #{args.join(' ')}")
+      system("#{command} #{args.join(' ')}")
     end
   end
 end
