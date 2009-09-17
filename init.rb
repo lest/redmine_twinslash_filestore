@@ -10,7 +10,7 @@ Redmine::Plugin.register :redmine_twinslash_filestore do
   version '0.0.1'
 
   project_module :filestore do
-    permission :filestore, {:filestore => [:index, :download]}, :public => true
+    permission :filestore, {:filestore => [:index, :download, :comment]}, :public => true
   end
 
   menu :project_menu,

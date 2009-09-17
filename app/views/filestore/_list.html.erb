@@ -1,12 +1,13 @@
 <% for entry in entries %>
   <% if File.basename(entry) != 'description.ion' %>
+    <% index ||= 0
+       level ||= 0
+       filename = entry.gsub(Regexp.new("^#{Regexp.quote(@base_dir)}/"), '') %>
     <tr>
-      <% level ||= 0 %>
       <td class="filename" style="padding-left: <%= level * 18 %>px;">
         <% if File.directory?(entry) %>
           <span class="icon icon-folder"><%= h File.basename(entry) %></span>
         <% else %>
-          <% filename = entry.gsub(Regexp.new("^#{Regexp.quote(@base_dir)}/"), '') %>
           <%= link_to h(File.basename(entry)),
                       {:action => 'download', :project_id => @project.identifier, :filename => filename},
                       :class => 'icon icon-file' %>
@@ -25,11 +26,20 @@
                comment = words[1..-1].join(' ')
              end
            end %>
-        <%= h comment %>
+        <div id="filestore-comment-<%= index %>"><%=h comment ? comment : '<no comment>' %></div>
+        <% javascript_tag do %>
+          new Ajax.InPlaceEditor('filestore-comment-<%= index %>',
+                                 '<%= url_for :action => 'comment',
+                                              :project_id => @project.identifier,
+                                              :filename => filename %>');
+        <% end %>
       </td>
     </tr>
+    <% index += 1 %>
     <% if File.directory?(entry) %>
-      <%= render :partial => 'list', :locals => {:entries => Dir.glob(entry + '/*'), :level => level + 1} %>
+      <%= render :partial => 'list',
+                 :locals => {:entries => Dir.glob(entry + '/*'),
+                 :level => level + 1, :index => index} %>
     <% end %>
   <% end %>
 <% end %>
