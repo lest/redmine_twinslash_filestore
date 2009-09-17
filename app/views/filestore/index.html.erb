@@ -1,0 +1,12 @@
+<h2>Filestore</h2>
+<table class="list entries">
+  <thead>
+    <th>Filename</th>
+    <th>Comment</th>
+  </thead>
+  <tbody>
+    <%= render :partial => 'list', :locals => {:entries => @entries} %>
+  </tbody>
+</table>
+
+<% html_title 'Filestore' %>

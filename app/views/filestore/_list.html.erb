@@ -1,0 +1,17 @@
+<% for entry in entries %>
+  <tr>
+    <% level ||= 0 %>
+    <td class="filename" style="padding-left: <%= level * 18 %>px;">
+      <% if File.directory?(entry) %>
+        <span class="icon icon-folder"><%= h File.basename(entry) %></span>
+      <% else %>
+        <% filename = entry.gsub(Regexp.new("^#{Regexp.quote(@base_dir)}/"), '') %>
+        <%= link_to h(File.basename(entry)), {:action => 'download', :project_id => @project.identifier, :filename => filename}, :class => 'icon icon-file' %>
+      <% end %>
+    </td>
+    <td class="comments">&nbsp;</td>
+  </tr>
+  <% if File.directory?(entry) %>
+    <%= render :partial => 'list', :locals => {:entries => Dir.glob(entry + '/*'), :level => level + 1} %>
+  <% end %>
+<% end %>
