@@ -27,11 +27,13 @@
              end
            end %>
         <div id="filestore-comment-<%= index %>"><%=h comment ? comment : '<no comment>' %></div>
-        <% javascript_tag do %>
-          new Ajax.InPlaceEditor('filestore-comment-<%= index %>',
-                                 '<%= url_for :action => 'comment',
-                                              :project_id => @project.identifier,
-                                              :filename => filename %>');
+        <% if User.current.allowed_to?(:filestore_write, @project ) %>
+          <% javascript_tag do %>
+            new Ajax.InPlaceEditor('filestore-comment-<%= index %>',
+                                   '<%= url_for :action => 'comment',
+                                                :project_id => @project.identifier,
+                                                :filename => filename %>');
+          <% end %>
         <% end %>
       </td>
     </tr>

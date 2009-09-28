@@ -7,10 +7,11 @@ Redmine::Plugin.register :redmine_twinslash_filestore do
   name 'Twinslash Filestore plugin'
   author 'Just Lest'
   description ''
-  version '0.0.1'
+  version '0.1.0'
 
   project_module :filestore do
-    permission :filestore, {:filestore => [:index, :download, :comment]}, :public => true
+    permission :filestore_read, {:filestore => [:index, :download]}
+    permission :filestore_write, {:filestore => :comment}
   end
 
   menu :project_menu,

@@ -7,8 +7,10 @@ module Twinslash
         res = arg.identifier if arg.is_a?(Project)
         res = arg.login if arg.is_a?(User)
         res
-      end 
-      system("#{command} #{args.join(' ')}")
+      end
+      command_with_args = "#{command} #{args.join(' ')}"
+      Rails.logger.debug(command_with_args)
+      system(command_with_args)
     end
   end
 end
